@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const connectDB = async () => {
-  await mongoose.connect("mongodb+srv://ajaniyaje23:ajaniyasri@cluster0.j6xxgdp.mongodb.net/food-del").then(()=>console.log("DB connected"));
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("✅ Local MongoDB Connected");
+  } catch (err) {
+    console.error("❌ MongoDB Connection Error:", err);
+    process.exit(1);
+  }
 };
